@@ -31,7 +31,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView rvTasks;
+    RecyclerView.Adapter ta;
     RecyclerView.LayoutManager lm;
+
+    ArrayList<String> tasks=new ArrayList<>();
 
     FeedTaskDbHelper dbOperations;
 
@@ -74,11 +77,22 @@ public class MainActivity extends AppCompatActivity
         }
         cursor.close();
 
+        tasks.add("Play");
+        tasks.add("Run");
+        tasks.add("Walk");
+
         rvTasks = (RecyclerView) findViewById(R.id.rvTasks);
         rvTasks.setHasFixedSize(true);
 
         lm = new LinearLayoutManager(getApplicationContext());
         rvTasks.setLayoutManager(lm);
+
+        TaskAdapter ta = new TaskAdapter(tasks);
+        rvTasks.setAdapter(ta);
+
+
+
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,6 +104,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -105,8 +124,9 @@ public class MainActivity extends AppCompatActivity
             }
             else {
                 text.append(" " + tasksentback);
+                tasks.add(tasksentback);
                 Task task = new Task(tasksentback);
-                dbOperations.addTask(task);
+                //dbOperations.addTask(task);
             }
         }
         else{
@@ -114,6 +134,28 @@ public class MainActivity extends AppCompatActivity
                     Toast.LENGTH_LONG).show();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {
