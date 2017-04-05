@@ -8,7 +8,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.prakhar.todolist2.SecondActivity">
 
-    <include layout="@layout/content_second" />
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/app_bar_second" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"

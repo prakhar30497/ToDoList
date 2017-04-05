@@ -36,10 +36,10 @@ public class SecondActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.colorBlue));
         }
-        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
 
-        if (getSupportActionBar() != null){
+        if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -58,9 +58,10 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if(item.getItemId()==android.R.id.home){
             finish();
         }
         return super.onOptionsItemSelected(item);

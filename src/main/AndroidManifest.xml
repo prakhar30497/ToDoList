@@ -21,7 +21,7 @@
         <activity
             android:name=".SecondActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"
+            android:label="New Task"
             android:windowSoftInputMode="adjustResize">
             </activity>
     </application>

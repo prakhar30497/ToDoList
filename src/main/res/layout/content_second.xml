@@ -8,21 +8,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.prakhar.todolist2.SecondActivity"
-    tools:showIn="@layout/activity_second">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/toolbar2"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:navigationIcon="@drawable/arrow_back_white_24x24"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorLightBlue"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </android.support.design.widget.AppBarLayout>
+    tools:showIn="@layout/app_bar_second">
 
     <EditText
         android:layout_width="match_parent"
