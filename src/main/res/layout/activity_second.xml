@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/ic_done_white_2x"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        app:elevation="12dp"
+        app:elevation="8dp"
         app:backgroundTint="@color/colorLightBlue"
         android:layout_margin="16dp"
         android:fitsSystemWindows="true"

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorBlue));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorLightBlue));
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -76,10 +76,6 @@ public class MainActivity extends AppCompatActivity
             long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(FeedTask.FeedEntry._ID));
         }
         cursor.close();
-
-        tasks.add("Play");
-        tasks.add("Run");
-        tasks.add("Walk");
 
         rvTasks = (RecyclerView) findViewById(R.id.rvTasks);
         rvTasks.setHasFixedSize(true);
@@ -115,7 +111,6 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if(data!=null) {
-            TextView text = (TextView) findViewById(R.id.tvText);
             String tasksentback = data.getStringExtra("Task");
 
             if(tasksentback.length()==0){
@@ -123,7 +118,6 @@ public class MainActivity extends AppCompatActivity
                         Toast.LENGTH_LONG).show();
             }
             else {
-                text.append(" " + tasksentback);
                 tasks.add(tasksentback);
                 Task task = new Task(tasksentback);
                 //dbOperations.addTask(task);
