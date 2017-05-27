@@ -10,10 +10,12 @@ public class FeedTaskDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "FeedTask.db";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + FeedTask.FeedEntry.TABLE_NAME + " (" + FeedTask.FeedEntry._ID + " INTEGER PRIMARY KEY," +
-                    FeedTask.FeedEntry.COLUMN_NAME_TASK + " TEXT)";
+            "CREATE TABLE " + FeedTask.TABLE_NAME + " (" +
+                    FeedTask.COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    FeedTask.COLUMN_TITLE + " TEXT," +
+                    FeedTask.COLUMN_NOTES + " TEXT)";
 
-    private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + FeedTask.FeedEntry.TABLE_NAME;
+    private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + FeedTask.TABLE_NAME;
 
     public FeedTaskDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,10 +34,4 @@ public class FeedTaskDbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public void addTask(Task task){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(FeedTask.FeedEntry.COLUMN_NAME_TASK, task.get_Task());
-    }
 }

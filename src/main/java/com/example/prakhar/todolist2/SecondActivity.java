@@ -16,7 +16,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-
 public class SecondActivity extends AppCompatActivity {
 
     @Override
@@ -34,7 +33,7 @@ public class SecondActivity extends AppCompatActivity {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorBlue));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorLightBlue));
         }
         Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
@@ -49,10 +48,13 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText etTask = (EditText) findViewById(R.id.etTask);
+                EditText etNote = (EditText) findViewById(R.id.etNote);
                 String Task = String.valueOf(etTask.getText());
+                String Note = String.valueOf(etNote.getText());
 
                 Intent intent = new Intent(SecondActivity.this, MainActivity.class);
                 intent.putExtra("Task", Task);
+                intent.putExtra("Note", Note);
                 setResult(RESULT_OK, intent);
                 finish();
             }

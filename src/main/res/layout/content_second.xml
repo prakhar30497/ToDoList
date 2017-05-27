@@ -13,7 +13,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Task"
+        android:hint="Title"
         android:layout_below="@id/toolbar2"
         android:id="@+id/etTask"
         android:textSize="30dp"

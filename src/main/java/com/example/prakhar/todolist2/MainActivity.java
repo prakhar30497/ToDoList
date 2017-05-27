@@ -5,12 +5,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity
 
     ArrayList<String> tasks=new ArrayList<>();
 
-    FeedTaskDbHelper dbOperations;
+    FeedTask db;
+    public static final int TASK_ENTRY_REQUEST_CODE = 1;
+    private static final String Tag = "Value";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +66,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        FeedTaskDbHelper mDbHelper = new FeedTaskDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        String[] projection = {FeedTask.FeedEntry._ID, FeedTask.FeedEntry.COLUMN_NAME_TASK};
-        String selection = FeedTask.FeedEntry.COLUMN_NAME_TASK + " = ?";
-        String[] selectionArgs = { "My Task" };
-
-        Cursor cursor = db.query(FeedTask.FeedEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-
-        ArrayList itemIds = new ArrayList<>();
-        while(cursor.moveToNext()){
-            long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(FeedTask.FeedEntry._ID));
-        }
-        cursor.close();
-
         rvTasks = (RecyclerView) findViewById(R.id.rvTasks);
         rvTasks.setHasFixedSize(true);
 
@@ -87,7 +76,20 @@ public class MainActivity extends AppCompatActivity
         rvTasks.setAdapter(ta);
 
 
+        db = new FeedTask(this);
 
+        Cursor cursor = db.getAllTaskRecords();
+        if(cursor.moveToFirst()){
+            do{
+                String title = cursor.getString(1);
+                String note = cursor.getString(2);
+                Log.d(Tag, title);
+            }while(cursor.moveToNext());
+        }
+
+        if(!cursor.isClosed()){
+            cursor.close();
+        }
 
 
 
@@ -111,16 +113,17 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if(data!=null) {
-            String tasksentback = data.getStringExtra("Task");
-
-            if(tasksentback.length()==0){
+            String title = data.getStringExtra("Task");
+            String note = data.getStringExtra("Note");
+            if(title.length()==0){
                 Toast.makeText(getApplicationContext(), "No TASK Added",
                         Toast.LENGTH_LONG).show();
             }
             else {
-                tasks.add(tasksentback);
-                Task task = new Task(tasksentback);
-                //dbOperations.addTask(task);
+                db.saveTask(title, note);
+
+                tasks.add(title);
+                Task task = new Task(title);
             }
         }
         else{
